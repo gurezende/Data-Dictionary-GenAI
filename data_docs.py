@@ -3,7 +3,6 @@ import os
 import json
 import streamlit as st
 from textwrap import dedent
-from utils import file_upload
 
 from agno.agent import Agent
 from agno.models.google import Gemini
@@ -72,7 +71,11 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
 
     # Save the workbook
     st.write("Saving File... :floppy_disk:")
+<<<<<<< HEAD
     wb.save('output.xlsx')
+=======
+    return wb.save('output.xlsx')
+>>>>>>> a45fbd2d0c049c5c00a44415b11db85a1515e500
 
 # Create the agent
 def create_agent(apy_key):
@@ -82,7 +85,8 @@ def create_agent(apy_key):
                             You are an agent that reads the temp.csv dataset presented to you and 
                             based on the name and data type of each column header, determine the following information:
                             - The data types of each column
-                            - The description of each column                   
+                            - The description of each column
+                            - The first column numer is 0
 
                             Using the FileTools provided, create a data dictionary in JSON format that includes the below information:
                             {<ColNumber>: {ColName: <ColName>, DataType: <DataType>, Description: <Description>}}
@@ -125,13 +129,8 @@ if __name__ == "__main__":
         # Upload file
         uploaded_file = st.file_uploader("File upload", 
                                          type='xlsx')
+        input_file = uploaded_file.name if uploaded_file is not None else None
         
-        # Get the file path
-        if uploaded_file is not None:
-            input_folder, input_path = file_upload(uploaded_file)
-        
-        # input = st.text_input("Path of the Excel file: ")
-        # input = st.file_uploader("Upload Excel file: ", type=["xlsx"]).
 
         # Run the agent
         agent_run = st.button("Run")
@@ -146,7 +145,7 @@ if __name__ == "__main__":
     # Create the agent
     if agent_run:
         # Convert Excel file to CSV
-        convert_to_csv(input_path)
+        convert_to_csv(input_file)
 
         # Create the agent
         agent = create_agent(api_key)
@@ -177,8 +176,7 @@ if __name__ == "__main__":
         os.remove('temp.csv')
         os.remove('data_dict.json')
     
-        st.write(":floppy_disk: Output file saved in " + input_folder)
 
     # If file exists, show success message
-    if os.path.exists('final.xlsx'):
+    if os.path.exists('output.xlsx'):
         st.success("Done! :white_check_mark:")
