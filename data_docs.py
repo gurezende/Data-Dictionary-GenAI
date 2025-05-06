@@ -51,6 +51,9 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     -------
     None
     """
+    
+    # Load the data dictionary
+    data_dict = json.load(open(data_dict))
 
     # Load the workbook
     wb = load_workbook(file_path)
@@ -70,8 +73,8 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     # Save the workbook
     st.write("Wiriting Data Dictionary... :page_facing_up:")
     st.write("Saving File... :floppy_disk:")
-    # wb.save(input_folder + '\output.xlsx')
-    wb.save('/app/documents/output.xlsx') # if using docker
+    wb.save(input_folder + '\output.xlsx')
+    # wb.save('/app/documents/output.xlsx') # if using docker
 
 # Create the agent
 def create_agent(apy_key):
@@ -79,10 +82,9 @@ def create_agent(apy_key):
         model=Gemini(id="gemini-2.0-flash", api_key=apy_key),
         description= dedent("""\
                             You are an agent that reads the temp.csv dataset presented to you and 
-                            determine the following information:
+                            based on the name and data type of each column header, determine the following information:
                             - The data types of each column
                             - The description of each column                   
-                            - The number of null values in each column
 
                             Using the FileTools provided, create a data dictionary in JSON format that includes the below information:
                             {<ColNumber>: {ColName: <ColName>, DataType: <DataType>, Description: <Description>}}
@@ -90,9 +92,7 @@ def create_agent(apy_key):
                             If you are unable to determine the data type or description of a column, return 'N/A' for that column for the missing values.
                             \
                             """),
-        tools=[convert_to_csv,
-               FileTools(read_files=True, save_files=True),
-               add_comments_to_header],
+        tools=[ FileTools(read_files=True, save_files=True) ],
         retries=2,
         show_tool_calls=True
         )
@@ -141,24 +141,25 @@ if __name__ == "__main__":
         st.divider()
 
         # Reset session state
-        if st.button("Reset"):
+        if st.button("Reset Session"):
             st.session_state.clear()
             st.rerun()
 
     # Create the agent
     if agent_run:
+        # Convert Excel file to CSV
+        convert_to_csv(input_path)
+
+        # Create the agent
         agent = create_agent(api_key)
-    
+
         # Start the script
         st.write("Running Agent... :runner:")
 
         # Run the agent    
         agent.print_response(dedent(f"""\
-                                1. Read the dataset {input_path} and convert it to a temporary CSV using the 'convert_to_csv' tool.
-                                2. Use the temp.csv as input to create the data dictionary for the columns in the dataset. 
-                                3. Using the FileTools tool, save the data dictionary to a file named 'data_dict.json'.
-                                4. Use the file 'data_dict.json' as input to the tool 'add_comments_to_header' and add the data dictionary as comments to the header of the dataset.
-                                5. Save the excel file with comments to a file named 'output.xlsx'.
+                                1. Use FileTools to read the temp.csv as input to create the data dictionary for the columns in the dataset. 
+                                2. Using the FileTools tool, save the data dictionary to a file named 'data_dict.json'.
                                 \
                                 """),
                         markdown=True)
@@ -168,6 +169,9 @@ if __name__ == "__main__":
         with open('data_dict.json', 'r') as f:
             data_dict = json.load(f)
             st.json(data_dict, expanded=False)
+
+        # Add comments to header
+        add_comments_to_header(input_path, 'data_dict.json')
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
