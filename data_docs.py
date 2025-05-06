@@ -129,11 +129,11 @@ if __name__ == "__main__":
     
     # progress bar
     progress_bar = st.empty()
-    progress_bar.progress(0)
+    progress_bar.progress(0, text="Initializing...")
     time.sleep(1)
-    progress_bar.progress(10)
+    progress_bar.progress(10, text="Processing CSV...")
     time.sleep(3)
-    progress_bar.progress(35)
+    progress_bar.progress(35, text="AI Agent is running...")
 
     st.divider()
 
@@ -197,4 +197,4 @@ if __name__ == "__main__":
         os.remove('output.xlsx')
 
     # Progress bar end
-    progress_bar.progress(100)
+    progress_bar.progress(100, text="Done!")
