@@ -169,13 +169,4 @@ if __name__ == "__main__":
             data_dict = json.load(f)
             st.json(data_dict, expanded=False)
 
-        # Remove temporary files
-        st.write("Removing temporary files... :wastebasket:")
-        os.remove('temp.csv')
-        os.remove('data_dict.json')
-    
-        st.write("output file will be saved in " + input_folder)
 
-    # If file exists, show success message
-    if os.path.exists('final.xlsx'):
-        st.success("Done! :white_check_mark:")
