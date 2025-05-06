@@ -141,13 +141,14 @@ if __name__ == "__main__":
         # Run the agent
         agent_run = st.button("Run")
 
+        # progress bar
+        progress_bar = st.progress(0)
+
         st.divider()
 
         # Reset session state
         if st.button("Reset Session"):
             st.session_state.clear()
-            with st.empty():
-                api_key
             st.rerun()
 
     # Create the agent
@@ -168,7 +169,7 @@ if __name__ == "__main__":
                                 \
                                 """),
                         markdown=True)
-        
+        progress_bar = st.progress(35)
         # Print the data dictionary
         st.write("Generating Data Dictionary... :page_facing_up:")
         with open('data_dict.json', 'r') as f:
