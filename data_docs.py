@@ -71,10 +71,8 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     """),'AI Agent')
 
     # Save the workbook
-    st.write("Wiriting Data Dictionary... :page_facing_up:")
     st.write("Saving File... :floppy_disk:")
-    wb.save(input_folder + '\output.xlsx')
-    # wb.save('/app/documents/output.xlsx') # if using docker
+    wb.save('output.xlsx')
 
 # Create the agent
 def create_agent(apy_key):
@@ -171,7 +169,8 @@ if __name__ == "__main__":
             st.json(data_dict, expanded=False)
 
         # Add comments to header
-        add_comments_to_header(input_path, 'data_dict.json')
+        output_= add_comments_to_header(input_path, 'data_dict.json')
+        st.download_button("Download Output File", data=output_, file_name='output.xlsx')
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
