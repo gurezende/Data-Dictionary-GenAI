@@ -131,11 +131,11 @@ if __name__ == "__main__":
     with st.sidebar:
         # Enter your API key
         st.caption("Enter your API key and the path of the Excel file.")
-        api_key = st.text_input("API key: ")
+        api_key = st.text_input("API key: ", placeholder="API key", type="password")
         
         # Upload file
         input_file = st.file_uploader("File upload", 
-                                         type='xlsx')
+                                       type='xlsx')
         
 
         # Run the agent
@@ -146,7 +146,6 @@ if __name__ == "__main__":
         # Reset session state
         if st.button("Reset Session"):
             st.session_state.clear()
-            st.session_state['api_key'] = None
             st.rerun()
 
     # Create the agent
