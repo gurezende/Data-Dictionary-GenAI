@@ -1,6 +1,7 @@
 # Imports
 import os
 import json
+import tempfile
 import streamlit as st
 from textwrap import dedent
 
@@ -126,7 +127,6 @@ if __name__ == "__main__":
         # Upload file
         input_file = st.file_uploader("File upload", 
                                          type='xlsx')
-        # input_file = uploaded_file.name if uploaded_file is not None else None
         
 
         # Run the agent
@@ -165,10 +165,13 @@ if __name__ == "__main__":
             st.json(data_dict, expanded=False)
 
         # Add comments to header
-        # add_comments_to_header(input_file, 'data_dict.json')
-        st.download_button("Download Output File",
-                           data=os.path('/mount/src/data-dictionary-genai/output.xlsx'),
-                           file_name='output.xlsx')
+        output_file = add_comments_to_header(input_file, 'data_dict.json')
+        
+        st.write(output_file)
+
+        # st.download_button("Download Output File",
+        #                    data=,
+        #                    file_name='output.xlsx')
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
