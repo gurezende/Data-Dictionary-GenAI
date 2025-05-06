@@ -132,6 +132,8 @@ if __name__ == "__main__":
     progress_bar.progress(0)
     time.sleep(1)
     progress_bar.progress(10)
+    time.sleep(3)
+    progress_bar.progress(35)
 
     st.divider()
 
@@ -174,7 +176,7 @@ if __name__ == "__main__":
                                 \
                                 """),
                         markdown=True)
-        progress_bar.progress(40)
+    
         # Print the data dictionary
         st.write("Generating Data Dictionary... :page_facing_up:")
         with open('data_dict.json', 'r') as f:
@@ -188,8 +190,11 @@ if __name__ == "__main__":
         st.write("Removing temporary files... :wastebasket:")
         os.remove('temp.csv')
         os.remove('data_dict.json')    
-    progress_bar.progress(100)
+    
     # If file exists, show success message
     if os.path.exists('output.xlsx'):
         st.success("Done! :white_check_mark:")
         os.remove('output.xlsx')
+
+    # Progress bar end
+    progress_bar.progress(100)
