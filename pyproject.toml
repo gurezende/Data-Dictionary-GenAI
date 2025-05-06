@@ -1,0 +1,14 @@
+[project]
+name = "data-docs-genai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=1.4.4",
+    "google-genai>=1.13.0",
+    "mcp>=1.7.1",
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
+    "streamlit>=1.45.0",
+]
