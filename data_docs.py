@@ -178,7 +178,7 @@ if __name__ == "__main__":
         os.remove('temp.csv')
         os.remove('data_dict.json')
     
-        st.write("output file will be saved in " + input_folder)
+        st.write(":floppy_disk: Output file saved in " + input_folder)
 
     # If file exists, show success message
     if os.path.exists('final.xlsx'):
