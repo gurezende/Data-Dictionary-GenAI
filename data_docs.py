@@ -74,7 +74,7 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     # Save the workbook
     st.write("Saving File... :floppy_disk:")
     wb.save('output.xlsx')
-    output = wb
+    output = wb.active
     st.write(output)
     # Return the file path
     return output
