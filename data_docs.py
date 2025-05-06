@@ -165,15 +165,17 @@ if __name__ == "__main__":
             st.json(data_dict, expanded=False)
 
         # Add comments to header
-        output = add_comments_to_header(input_file, 'data_dict.json')
+        add_comments_to_header(input_file, 'data_dict.json')
+
+        # Save Message
+        st.write(":floppy_disk: Output file saved")
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
         os.remove('temp.csv')
         os.remove('data_dict.json')
     
-        st.write(":floppy_disk: Output file saved")
 
     # If file exists, show success message
-    if os.path.exists('final.xlsx'):
+    if os.path.exists('output.xlsx'):
         st.success("Done! :white_check_mark:")
