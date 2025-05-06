@@ -74,10 +74,15 @@ def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     # Save the workbook
     st.write("Saving File... :floppy_disk:")
     wb.save('output.xlsx')
-    output = wb.active
-    st.write(output)
-    # Return the file path
-    return output
+
+    # Create a download button
+    with open('output.xlsx', 'rb') as f:
+        st.download_button(
+            label="Download output.xlsx",
+            data=f,
+            file_name='output.xlsx',
+            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
 
 # Create the agent
 def create_agent(apy_key):
@@ -169,16 +174,13 @@ if __name__ == "__main__":
             st.json(data_dict, expanded=False)
 
         # Add comments to header
-        output_file = add_comments_to_header(input_file, 'data_dict.json')
-
-        st.download_button("Download Output File",
-                           data= output_file,
-                           file_name='output.xlsx')
+        add_comments_to_header(input_file, 'data_dict.json')
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
         os.remove('temp.csv')
         os.remove('data_dict.json')
+        os.remove('output.xlsx')
     
 
     # If file exists, show success message
