@@ -146,7 +146,8 @@ if __name__ == "__main__":
         # Reset session state
         if st.button("Reset Session"):
             st.session_state.clear()
-            st.experimental_rerun()
+            st.session_state.api_key = ""
+            st.rerun()
 
     # Create the agent
     if agent_run:
