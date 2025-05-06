@@ -179,10 +179,9 @@ if __name__ == "__main__":
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
         os.remove('temp.csv')
-        os.remove('data_dict.json')
-        os.remove('output.xlsx')
-    
+        os.remove('data_dict.json')    
 
     # If file exists, show success message
     if os.path.exists('output.xlsx'):
         st.success("Done! :white_check_mark:")
+        os.remove('output.xlsx')
