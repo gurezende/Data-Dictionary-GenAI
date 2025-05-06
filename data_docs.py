@@ -131,7 +131,7 @@ if __name__ == "__main__":
     progress_bar = st.empty()
     progress_bar.progress(0, text="Initializing...")
     time.sleep(1)
-    progress_bar.progress(10, text="Processing CSV...")
+    progress_bar.progress(10, text="Processing...")
     time.sleep(3)
     progress_bar.progress(35, text="AI Agent is running...")
 
