@@ -25,7 +25,8 @@ def convert_to_csv(file_path:str):
    # Convert to CSV
    st.write("Converting to CSV... :leftwards_arrow_with_hook:")
    return df.to_csv('temp.csv', index=False)
-
+`
+`
 # Custom Tool to add comments to the header of an Excel file
 def add_comments_to_header(file_path:str, data_dict:dict="data_dict.json"):
     """
@@ -123,9 +124,9 @@ if __name__ == "__main__":
         api_key = st.text_input("API key: ")
         
         # Upload file
-        uploaded_file = st.file_uploader("File upload", 
+        input_file = st.file_uploader("File upload", 
                                          type='xlsx')
-        input_file = uploaded_file.name if uploaded_file is not None else None
+        # input_file = uploaded_file.name if uploaded_file is not None else None
         
 
         # Run the agent
