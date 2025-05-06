@@ -127,14 +127,6 @@ if __name__ == "__main__":
     st.caption("3. The agent will generate a data dictionary and add it as comments to the header of the Excel file.")
     st.caption("ColName: <ColName> | DataType: <DataType> | Description: <Description>")
     
-    # progress bar
-    progress_bar = st.empty()
-    progress_bar.progress(0, text="Initializing...")
-    time.sleep(1)
-    progress_bar.progress(10, text="Processing...")
-    time.sleep(3)
-    progress_bar.progress(35, text="AI Agent is running...")
-
     st.divider()
 
 
@@ -150,6 +142,10 @@ if __name__ == "__main__":
 
         # Run the agent
         agent_run = st.button("Run")
+
+        # progress bar
+        progress_bar = st.empty()
+        progress_bar.progress(0, text="Initializing...")
 
         st.divider()
 
@@ -177,6 +173,9 @@ if __name__ == "__main__":
                                 """),
                         markdown=True)
     
+        # Register progress
+        progress_bar.progress(35, text="AI Agent is running...")
+        
         # Print the data dictionary
         st.write("Generating Data Dictionary... :page_facing_up:")
         with open('data_dict.json', 'r') as f:
