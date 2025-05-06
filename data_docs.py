@@ -1,6 +1,7 @@
 # Imports
 import os
 import json
+import time
 import tempfile
 import streamlit as st
 from textwrap import dedent
@@ -142,7 +143,10 @@ if __name__ == "__main__":
         agent_run = st.button("Run")
 
         # progress bar
-        progress_bar = st.progress(0)
+        progress_bar = st.empty()
+        progress_bar.progress(0)
+        time.sleep(1)
+        progress_bar.progress(10)
 
         st.divider()
 
@@ -169,7 +173,7 @@ if __name__ == "__main__":
                                 \
                                 """),
                         markdown=True)
-        progress_bar = st.progress(35)
+        
         # Print the data dictionary
         st.write("Generating Data Dictionary... :page_facing_up:")
         with open('data_dict.json', 'r') as f:
