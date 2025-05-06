@@ -165,8 +165,10 @@ if __name__ == "__main__":
             st.json(data_dict, expanded=False)
 
         # Add comments to header
-        add_comments_to_header(input_file, 'data_dict.json')
-        st.download_button("Download Output File", data='/mount/src/data-dictionary-genai/output.xlsx' , file_name='output.xlsx')
+        # add_comments_to_header(input_file, 'data_dict.json')
+        st.download_button("Download Output File", '
+                           data=os.path('/mount/src/data-dictionary-genai/output.xlsx'),
+                           file_name='output.xlsx')
 
         # Remove temporary files
         st.write("Removing temporary files... :wastebasket:")
