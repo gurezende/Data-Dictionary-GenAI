@@ -159,11 +159,17 @@ if __name__ == "__main__":
         # Convert Excel file to CSV
         convert_to_csv(input_file)
 
+        # Register progress
+        progress_bar.progress(15, text="Processing CSV...")
+
         # Create the agent
         agent = create_agent(api_key)
 
         # Start the script
         st.write("Running Agent... :runner:")
+
+        # Register progress
+        progress_bar.progress(50, text="AI Agent is running...")
 
         # Run the agent    
         agent.print_response(dedent(f"""\
@@ -172,9 +178,7 @@ if __name__ == "__main__":
                                 \
                                 """),
                         markdown=True)
-    
-        # Register progress
-        progress_bar.progress(35, text="AI Agent is running...")
+
         
         # Print the data dictionary
         st.write("Generating Data Dictionary... :page_facing_up:")
