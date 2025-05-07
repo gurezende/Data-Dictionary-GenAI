@@ -1,8 +1,6 @@
 # Imports
 import os
 import json
-import time
-import tempfile
 import streamlit as st
 from textwrap import dedent
 
